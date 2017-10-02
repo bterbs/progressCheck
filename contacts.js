@@ -32,6 +32,7 @@ const addContact = function(firstName, lastName, email) {
  *    undefined
  */
 const addContacts = function(contacts) {
+  console.log('Loading contact data...');
   contacts.forEach(contact => {contactStorage.push(contact)});
   contactStorage.sort(function (a, b) {
   if (a.first_name < b.first_name) {
@@ -42,6 +43,7 @@ const addContacts = function(contacts) {
   }
   return 0;
   });
+  console.log('...Finished loading contact data.')
 };
 
 /*
