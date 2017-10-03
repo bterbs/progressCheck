@@ -90,12 +90,11 @@ const printContacts = function() {
       if (fullName.length < longestEmail.length) {
           fullName = fullName + new Array(longestEmail.length - fullName.length).join(' ')
       };
-
-      emailAddress = emailAddress + new Array((longestEmail.length - emailAddress.length)+3).join(' ')
-
+      
+      emailAddress = emailAddress + new Array((longestEmail.length - emailAddress.length)+3).join(' ');
       console.log(`| ${fullName}| ${emailAddress}|`);
    });
-
+      console.log(`|${nameDashes}+${emailDashes}|`);
 };
 
 ////////////////////////////////////////////////////////////
