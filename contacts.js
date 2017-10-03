@@ -61,9 +61,10 @@ const addContacts = function(contacts) {
  *    undefined
  */
 const printContacts = function() {
-  let nameSpaces, emailSpaces;
+  let nameSpaces, emailSpaces; //declared here for ability to use in larger scope.
+
 //lines 65-77 determine the length of the longest name and email,
-// then base the formatting off the length of whichever is longer.
+// (this information is used later to format the spacing when printing contacts)
    let names = [];
    contactStorage.forEach(contact => names.push(contact.first_name + ' ' + contact.last_name));
    let longest = names.reduce((longestName, name) => {
@@ -74,6 +75,8 @@ const printContacts = function() {
    let longestEmail = emails.reduce((currentLongest, email) => {
      return email.length > currentLongest ? email : currentLongest;
    })
+
+//  Lines 79-87 adjust the header format also based on length of longest email addy
    nameDashes = new Array(longest.length+(longestEmail.length-longest.length)+1).join('-')
    emailDashes = new Array(longestEmail.length+4).join('-')
    titleName = new Array(nameDashes.length-9).join(' ')
@@ -83,14 +86,14 @@ const printContacts = function() {
    console.log(`| Full Name${titleName} Full Email${titleEmail}|`);
    console.log(`|${nameDashes}+${emailDashes}|`);
 
-// Lines 87-97 set formatting for contact info then log results to screen.
+// Lines 88-97 set formatting for contact info then log results to screen.
    contactStorage.forEach(contact => {
      let fullName = contact.first_name + ' ' + contact.last_name;
      let emailAddress = contact.email;
       if (fullName.length < longestEmail.length) {
           fullName = fullName + new Array(longestEmail.length - fullName.length).join(' ')
       };
-      
+
       emailAddress = emailAddress + new Array((longestEmail.length - emailAddress.length)+3).join(' ');
       console.log(`| ${fullName}| ${emailAddress}|`);
    });
