@@ -1,3 +1,7 @@
+// bds: Very nice, Brittany! I've made some comments below.
+
+// bds: eslint doesn't like this file. Make sure you're installing
+// bds: eslint with every project
 let contactStorage = [] // here is where you'll store your contacts
 
 const addContact = function(firstName, lastName, email) {
@@ -34,6 +38,7 @@ const addContact = function(firstName, lastName, email) {
 const addContacts = function(contacts) {
   console.log('Loading contact data...');
   contacts.forEach(contact => {contactStorage.push(contact)});
+
   contactStorage.sort(function (a, b) {
   if (a.first_name < b.first_name) {
     return -1;
@@ -63,13 +68,28 @@ const addContacts = function(contacts) {
 const printContacts = function() {
   let nameSpaces, emailSpaces; //declared here for ability to use in larger scope.
 
-//lines 65-77 determine the length of the longest name and email,
+// bds: nice commenting here. Best not to use line numbers in comments, though,
+// bds: since those can easily change.
+// lines 65-77 determine the length of the longest name and email,
 // (this information is used later to format the spacing when printing contacts)
    let names = [];
+
+   // bds: you don't need to use the forEach; you can make the name string inside
+   // bds: the reduce. Also, are you ever using the names separated? If not, you
+   // bds: might want to make the full name string and store that in the contact
+   // bds: object (hmmm, a use for addContact after all...). Finally, you probably
+   // bds: only need to store the length as the accumulator, since you never actually
+   // bds: use the longestName, only its length
    contactStorage.forEach(contact => names.push(contact.first_name + ' ' + contact.last_name));
+
+   // bds: store this as longestName, not longest -- will make it easier to
+   // bds: read code that references this variable
    let longest = names.reduce((longestName, name) => {
      return name.length > longestName ? name : longestName;
    })
+
+   // bds: same comment as for names; the construction of a new array isn't
+   // bds: necessary here.
    let emails = [];
    contactStorage.forEach(contact => emails.push(contact.email));
    let longestEmail = emails.reduce((currentLongest, email) => {
@@ -77,6 +97,8 @@ const printContacts = function() {
    })
 
 //  Lines 79-87 adjust the header format also based on length of longest email addy
+  // bds: something's wrong with the math on the next line. It works out to
+  // bds: longestEmail.length + 1. I don't think that's what you intended...
    nameDashes = new Array(longest.length+(longestEmail.length-longest.length)+1).join('-')
    emailDashes = new Array(longestEmail.length+4).join('-')
    titleName = new Array(nameDashes.length-9).join(' ')
@@ -91,9 +113,14 @@ const printContacts = function() {
      let fullName = contact.first_name + ' ' + contact.last_name;
      let emailAddress = contact.email;
       if (fullName.length < longestEmail.length) {
+        // bds: make a function here to augment a string with the number of spaces.
+        // bds: it could be called padString and it would take the string and the
+        // bds: desired length.
+        // bds: Why are you using longestEmail here and not longest?
           fullName = fullName + new Array(longestEmail.length - fullName.length).join(' ')
       };
 
+      // bds: use your "padString" function here too
       emailAddress = emailAddress + new Array((longestEmail.length - emailAddress.length)+3).join(' ');
       console.log(`| ${fullName}| ${emailAddress}|`);
    });
