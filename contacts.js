@@ -1,10 +1,10 @@
-let contactStorage = [] // here is where you'll store your contacts
+const contactStorage = []; // here is where you'll store your contacts
 
-const addContact = function(firstName, lastName, email) {
+const addContact = function (firstName, lastName, email) {
   contactStorage.push({
-    'first_name': firstName,
-    'last_name': lastName,
-    'email': email,
+    first_name: firstName,
+    last_name: lastName,
+    email: email,
   });
 }
 
@@ -33,15 +33,15 @@ const addContact = function(firstName, lastName, email) {
  */
 const addContacts = function(contacts) {
   console.log('Loading contact data...');
-  contacts.forEach(contact => {contactStorage.push(contact)});
+  contacts.forEach(contact => {contactStorage.push(contact) });
   contactStorage.sort(function (a, b) {
-  if (a.first_name < b.first_name) {
-    return -1;
-  }
-  if (a.first_name > b.first_name) {
-    return 1;
-  }
-  return 0;
+    if (a.first_name < b.first_name) {
+      return -1;
+    }
+    if (a.first_name > b.first_name) {
+      return 1;
+    }
+    return 0;
   });
   console.log('...Finished loading contact data.')
 };
@@ -61,48 +61,48 @@ const addContacts = function(contacts) {
  *    undefined
  */
 const printContacts = function() {
-  let nameSpaces, emailSpaces; //declared here for ability to use in larger scope.
+  let nameSpaces, emailSpaces;
 
 //lines 65-77 determine the length of the longest name and email,
 // (this information is used later to format the spacing when printing contacts)
    let names = [];
-   contactStorage.forEach(contact => names.push(contact.first_name + ' ' + contact.last_name));
+  contactStorage.forEach(contact => names.push(contact.first_name + ' ' + contact.last_name));
    let longest = names.reduce((longestName, name) => {
      return name.length > longestName ? name : longestName;
-   })
-   let emails = [];
-   contactStorage.forEach(contact => emails.push(contact.email));
-   let longestEmail = emails.reduce((currentLongest, email) => {
+  })
+  let emails = [];
+  contactStorage.forEach(contact => emails.push(contact.email));
+  let longestEmail = emails.reduce((currentLongest, email) => {
      return email.length > currentLongest ? email : currentLongest;
    })
 
 //  Lines 79-87 adjust the header format also based on length of longest email addy
-   nameDashes = new Array(longest.length+(longestEmail.length-longest.length)+1).join('-')
-   emailDashes = new Array(longestEmail.length+4).join('-')
-   titleName = new Array(nameDashes.length-9).join(' ')
-   titleEmail = new Array(emailDashes.length-9).join(' ')
+  nameDashes = new Array(longest.length + ( longestEmail.length - longest.length) + 1).join('-')
+  emailDashes = new Array(longestEmail.length+4).join('-')
+  titleName = new Array(nameDashes.length-9).join(' ')
+  titleEmail = new Array(emailDashes.length-9).join(' ')
 
    console.log('All Contacts:');
    console.log(`| Full Name${titleName} Full Email${titleEmail}|`);
    console.log(`|${nameDashes}+${emailDashes}|`);
 
-// Lines 88-97 set formatting for contact info then log results to screen.
-   contactStorage.forEach(contact => {
-     let fullName = contact.first_name + ' ' + contact.last_name;
-     let emailAddress = contact.email;
-      if (fullName.length < longestEmail.length) {
-          fullName = fullName + new Array(longestEmail.length - fullName.length).join(' ')
-      };
+// Lines 88-97 set formatting for contact info then log the results to the console.
+  contactStorage.forEach(contact => {
+    let fullName = contact.first_name + ' ' + contact.last_name;
+    let emailAddress = contact.email;
+    if (fullName.length < longestEmail.length) {
+      fullName = fullName + new Array(longestEmail.length - fullName.length).join(' ')
+    }
 
-      emailAddress = emailAddress + new Array((longestEmail.length - emailAddress.length)+3).join(' ');
+    emailAddress = emailAddress + new Array((longestEmail.length - emailAddress.length)+3).join(' ');
       console.log(`| ${fullName}| ${emailAddress}|`);
-   });
-      console.log(`|${nameDashes}+${emailDashes}|`);
+  });
+  console.log(`|${nameDashes}+${emailDashes}|`);
 };
 
-////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////
 /*          Do not make changes below this line           */
-////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////
 
 addContacts([
   {
